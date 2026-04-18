@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cavallini Design System - Premium Platform</title>
+
+    <!-- Importing Lucide Icons via CDN for safety -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Importing Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* === CORE VARIABLES === */
+        :root {
+            /* Brand Colors (Strict to the brandbook) */
+            --c-orange: #d93e15;
+            --c-black: #000000;
+            --c-gray: #E8E8E8;
+            --c-white: #ffffff;
+
+            /* Typography */
+            --font-primary: 'Urbanist', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Radius */
+            --rad-sm: 4px;
+            --rad-md: 8px;
+            --rad-lg: 16px;
+            --rad-xl: 32px;
+            --rad-full: 9999px;
+
+            /* Transitions */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        /* === THEME MODES === */
+        [data-theme="dark"] {
+            --bg-base: #050505;
+            --text-main: var(--c-white);
+            --text-muted: rgba(232, 232, 232, 0.5);
+            --text-dim: rgba(232, 232, 232, 0.3);
+            --bg-surface: rgba(255, 255, 255, 0.02);
+            --bg-surface-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(217, 62, 21, 0.3);
+            --bg-grid-line: rgba(255, 255, 255, 0.03);
+            --aurora-opacity: 0.15;
+            --pill-active-bg: var(--c-white);
+            --pill-active-text: var(--c-black);
+            --pill-bg: rgba(255, 255, 255, 0.03);
+            --btn-elegant-bg: var(--c-white);
+            --btn-elegant-text: var(--c-black);
+            --btn-elegant-hover-bg: var(--c-orange);
+            --btn-elegant-hover-text: var(--c-white);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f7f7f8;
+            --text-main: var(--c-black);
+            --text-muted: rgba(0, 0, 0, 0.6);
+            --text-dim: rgba(0, 0, 0, 0.4);
+            --bg-surface: rgba(255, 255, 255, 1);
+            --bg-surface-hover: rgba(255, 255, 255, 0.8);
+            --border-subtle: rgba(0, 0, 0, 0.1);
+            --border-glow: rgba(217, 62, 21, 0.3);
+            --bg-grid-line: rgba(0, 0, 0, 0.04);
+            --aurora-opacity: 0.06;
+            --pill-active-bg: var(--c-black);
+            --pill-active-text: var(--c-white);
+            --pill-bg: rgba(0, 0, 0, 0.05);
+            --btn-elegant-bg: var(--c-black);
+            --btn-elegant-text: var(--c-white);
+            --btn-elegant-hover-bg: var(--c-orange);
+            --btn-elegant-hover-text: var(--c-white);
+        }
+
+        /* === RESET === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+            transition: background-color 0.6s var(--ease-out-expo), color 0.6s var(--ease-out-expo);
+        }
+
+        ::selection {
+            background: var(--c-orange);
+            color: var(--c-white);
+        }
+
+        /* === UTILITIES & BACKGROUNDS === */
+        .font-mono { font-family: var(--font-mono); }
+        .text-orange { color: var(--c-orange); }
+        .text-muted { color: var(--text-muted); }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                linear-gradient(to right, var(--bg-grid-line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--bg-grid-line) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+            transition: background-image 0.6s;
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .aurora {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; pointer-events: none;
+            opacity: var(--aurora-opacity);
+            transition: opacity 1s;
+        }
+        .aurora::before, .aurora::after {
+            content: ''; position: absolute; width: 60vw; height: 60vw;
+            border-radius: 50%; filter: blur(100px);
+            animation: orbit 30s infinite linear;
+        }
+        .aurora::before { background: var(--c-orange); top: -20%; left: -10%; transform-origin: center right; }
+        .aurora::after { background: var(--text-main); bottom: -20%; right: -10%; animation-direction: reverse; animation-duration: 40s; transform-origin: center left; opacity: 0.5;}
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(1000%); opacity: 0; }
+        }
+
+        .scanline-overlay {
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(217,62,21,0.5), transparent);
+            animation: scanline 8s infinite linear; pointer-events: none; z-index: 10;
+        }
+
+        /* === ANIMATIONS (VIBE DESIGN REVEALS) === */
+        .sys-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(8px);
+            transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), filter 1.2s var(--ease-out-expo);
+            will-change: opacity, transform, filter;
+        }
+        .sys-reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .del-100 { transition-delay: 100ms; }
+        .del-200 { transition-delay: 200ms; }
+        .del-300 { transition-delay: 300ms; }
+        .del-400 { transition-delay: 400ms; }
+        .del-500 { transition-delay: 500ms; }
+
+        @keyframes pulse-dot {
+            0% { box-shadow: 0 0 0 0 rgba(217, 62, 21, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(217, 62, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 62, 21, 0); }
+        }
+
+        .status-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--c-orange); animation: pulse-dot 2s infinite;
+        }
+
+        /* === LAYOUT & TYPOGRAPHY === */
+        .container { max-width: 1360px; margin: 0 auto; padding: 0 5%; }
+        .section { padding: 140px 0; position: relative; border-bottom: 1px solid var(--border-subtle); }
+        .section:last-of-type { border-bottom: none; }
+
+        .t-hero {
+            font-size: clamp(3.5rem, 8vw, 7.5rem);
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+        .t-h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .t-mono-label {
+            font-family: var(--font-mono); font-size: 0.65rem;
+            letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim);
+        }
+
+        /* === BENTO GRID CARDS === */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            grid-auto-rows: minmax(280px, auto);
+        }
+
+        .bento-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-lg);
+            padding: 32px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden;
+            transition: all 0.5s var(--ease-out-expo);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        }
+
+        [data-theme="light"] .bento-card {
+            box-shadow: 0 4px 40px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .bento-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+        }
+
+        .bento-col-2 { grid-column: span 2; }
+        .bento-col-3 { grid-column: span 3; }
+        .bento-col-4 { grid-column: span 4; }
+        .bento-row-2 { grid-row: span 2; }
+
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .bento-col-3 { grid-column: span 2; }
+        }
+        @media (max-width: 640px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-col-2, .bento-col-3, .bento-col-4 { grid-column: span 1; }
+        }
+
+        /* Magnetic Hover Border Glow Setup */
+        .bento-glow-spot {
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), var(--border-glow), transparent 40%);
+            position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
+        }
+        .bento-card:hover .bento-glow-spot { opacity: 1; }
+        .bento-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+
+        /* === UI COMPONENTS === */
+        .btn-elegant {
+            display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+            padding: 16px 36px;
+            background: var(--btn-elegant-bg); color: var(--btn-elegant-text);
+            font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+            border-radius: var(--rad-full); border: none; cursor: pointer;
+            transition: all 0.5s var(--ease-out-expo);
+            overflow: hidden; position: relative; text-decoration: none;
+        }
+        .btn-elegant span, .btn-elegant i { position: relative; z-index: 2; transition: all 0.4s; }
+        .btn-elegant::after {
+            content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 100%;
+            background: var(--btn-elegant-hover-bg); border-radius: 50% 50% 0 0;
+            transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1); z-index: 1;
+        }
+        .btn-elegant:hover::after { top: 0; border-radius: 0; }
+        .btn-elegant:hover span, .btn-elegant:hover i {
+            color: var(--btn-elegant-hover-text);
+        }
+        .btn-elegant:hover i { transform: translateX(4px) scale(1.1); }
+
+        .btn-outline {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 16px 36px; border: 1px solid var(--border-subtle);
+            background: transparent; color: var(--text-main);
+            font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+            border-radius: var(--rad-full); cursor: pointer; transition: all 0.4s; text-decoration: none;
+        }
+        .btn-outline:hover {
+            border-color: var(--c-orange); background: rgba(217, 62, 21, 0.05); color: var(--c-orange);
+        }
+
+        .pill-group {
+            display: inline-flex; background: var(--pill-bg);
+            border-radius: var(--rad-full); padding: 6px; border: 1px solid var(--border-subtle);
+        }
+        .pill {
+            padding: 10px 24px; border-radius: var(--rad-full);
+            font-size: 0.8rem; font-weight: 600; font-family: var(--font-primary);
+            color: var(--text-muted); cursor: pointer; transition: all 0.4s;
+        }
+        .pill.active { background: var(--pill-active-bg); color: var(--pill-active-text); }
+        .pill:hover:not(.active) { color: var(--text-main); }
+
+        .form-input {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 0; color: var(--text-main);
+            font-family: var(--font-primary); font-size: 1.1rem;
+            outline: none; transition: border-color 0.4s;
+        }
+        .form-input::placeholder { color: var(--text-dim); }
+        .form-input:focus { border-bottom-color: var(--c-orange); }
+
+        /* Badges */
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-subtle);
+            font-size: 0.65rem; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .brand-logo {
+            font-size: 14px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+            display: flex; align-items: center; gap: 12px;
+        }
+        
+        .theme-toggle {
+            background: transparent; border: 1px solid var(--border-subtle);
+            color: var(--text-main); border-radius: var(--rad-full);
+            width: 44px; height: 44px; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .theme-toggle:hover { border-color: var(--c-orange); color: var(--c-orange); }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient / Backgrounds -->
+    <div class="bg-noise"></div>
+    <div class="bg-grid"></div>
+    <div class="aurora"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="brand-logo">
+            <div class="status-dot"></div>
+            Cavallini System
+        </div>
+        <div style="display: flex; align-items: center; gap: 24px;">
+            <div class="font-mono text-muted" style="font-size: 10px;">V2.1 / DEPLOYMENT</div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                <i data-lucide="moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- SECTION: HERO -->
+        <section class="section" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 200px;">
+            <div class="scanline-overlay"></div>
+            
+            <div class="sys-reveal" style="margin-bottom: 2rem;">
+                <span class="badge" style="border-radius: var(--rad-full); background: rgba(255,255,255,0.02);">
+                    <i data-lucide="shield-check" style="width:14px;"></i> B2B Interface Pattern
+                </span>
+            </div>
+
+            <h1 class="t-hero sys-reveal del-100" style="margin-bottom: 24px;">
+                <span style="display:block;">Engenharia</span>
+                <span style="display:block;"><span class="text-orange">Elegante.</span></span>
+            </h1>
+
+            <p class="text-muted font-mono sys-reveal del-200" style="max-width: 500px; margin-bottom: 48px; font-size: 0.85rem; line-height: 1.8; border-left: 2px solid var(--c-orange); padding-left: 16px;">
+                O Vibe Design System transforma o rigor técnico normativo em uma experiência fluida, madura e escalável. Sem ruídos, sem atritos. Apenas controle previsível.
+            </p>
+
+            <div class="sys-reveal del-300" style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                <a href="#components" class="btn-elegant">
+                    <span>Acessar Componentes</span>
+                    <i data-lucide="box"></i>
+                </a>
+                <a href="#typography" class="btn-outline">
+                    Ler Documentação
+                </a>
+            </div>
+            
+            <div class="sys-reveal del-500" style="position: absolute; bottom: 40px; right: 0; text-align: right;">
+                <div class="font-mono text-muted uppercase tracking-widest text-[10px]" style="font-size: 10px;">SISTEMA ATUALIZADO</div>
+                <div class="text-orange font-bold font-mono text-sm mt-1">2026.04_RELEASE</div>
+            </div>
+        </section>
+
+        <!-- SECTION: DESIGN FOUNDATIONS -->
+        <section id="typography" class="section">
+            <span class="t-mono-label sys-reveal" style="display:block; margin-bottom: 16px; color: var(--c-orange);">// 01. FUNDAMENTOS</span>
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; flex-wrap: wrap; gap: 32px;">
+                <h2 class="t-h2 sys-reveal del-100 max-w-2xl">A anatomia visual da autoridade serena.</h2>
+                <div class="sys-reveal del-200 text-muted font-mono" style="font-size: 12px; text-align: right;">
+                    CORES PRIMÁRIAS +<br>
+                    URBANIST DISPLAY
+                </div>
+            </div>
+
+            <!-- Bento Grid Foundations -->
+            <div class="bento-grid">
+                
+                <!-- Color: Orange -->
+                <div class="bento-card sys-reveal del-100 p-0 overflow-hidden" style="padding: 0;">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content">
+                        <div style="height: 140px; background: var(--c-orange); width: 100%;"></div>
+                        <div style="padding: 24px;">
+                            <span class="t-mono-label">Atenção & Zelo</span>
+                            <h3 class="font-bold text-xl mt-2">#D93E15</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color: Black -->
+                <div class="bento-card sys-reveal del-200" style="padding: 0;">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content">
+                        <div style="height: 140px; background: #000000; width: 100%; border-bottom: 1px solid var(--border-subtle);"></div>
+                        <div style="padding: 24px;">
+                            <span class="t-mono-label">Autoridade / Base Escura</span>
+                            <h3 style="color: #000;" class="font-bold text-xl mt-2 dark:text-white">#000000</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color: Gray/White -->
+                <div class="bento-card sys-reveal del-300 bento-col-2" style="padding: 0; display: flex; flex-direction: row;">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content" style="flex-direction: row; width: 100%;">
+                        <div style="flex: 1; padding: 32px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border-subtle);">
+                            <div style="width: 48px; height: 48px; background: var(--c-gray); border-radius: 50%; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.1);"></div>
+                            <span class="t-mono-label">Legado Familiar</span>
+                            <h3 class="font-bold text-xl mt-2">#E8E8E8</h3>
+                        </div>
+                        <div style="flex: 1; padding: 32px; display: flex; flex-direction: column; justify-content: center; background: #fff;">
+                            <div style="width: 48px; height: 48px; background: var(--c-white); border-radius: 50%; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.1);"></div>
+                            <span class="t-mono-label">Simplicidade</span>
+                            <h3 class="font-bold text-xl mt-2" style="color: #000;">#FFFFFF</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Spec -->
+                <div class="bento-card sys-reveal del-400 bento-col-4 bento-row-2" style="background: var(--bg-surface-hover);">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content" style="display: flex; flex-direction: row; gap: 48px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <span class="badge" style="margin-bottom: 24px;">FONT.URBANIST</span>
+                            <h1 style="font-size: 6rem; line-height: 1; font-weight: 800; letter-spacing: -0.05em;">Aa</h1>
+                            <p class="text-muted mt-4 font-mono text-sm max-w-sm">
+                                Pesos intensos em títulos contrastam com estruturas limpas nas interfaces, guiando a leitura com método.
+                            </p>
+                        </div>
+                        <div style="flex: 1; display:flex; flex-direction: column; gap: 24px; width: 100%; min-width: 300px;">
+                            <div style="border-bottom: 1px dashed var(--border-subtle); padding-bottom: 16px; display: flex; justify-content: space-between; align-items: baseline;">
+                                <div><span class="t-mono-label block mb-1">H1 / DISPLAY / 700 / clamp()</span><div class="t-h2 tracking-tight">Cavallini</div></div>
+                            </div>
+                            <div style="border-bottom: 1px dashed var(--border-subtle); padding-bottom: 16px; display: flex; justify-content: space-between; align-items: baseline;">
+                                <div><span class="t-mono-label block mb-1">H3 / HEADING / 600 / 1.5rem</span><div style="font-size: 1.5rem; font-weight: 600;">Diretrizes do Método</div></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                                <div><span class="t-mono-label block mb-1">BODY / TEXT / 400 / 1rem</span><div style="font-size: 1rem;">O processo começa na lei e termina no controle.</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION: COMPONENTS -->
+        <section id="components" class="section">
+            <span class="t-mono-label sys-reveal" style="display:block; margin-bottom: 16px; color: var(--c-orange);">// 02. ESTRUTURAS VISUAIS</span>
+            <h2 class="t-h2 sys-reveal del-100" style="margin-bottom: 64px;">Bento Componentes</h2>
+
+            <div class="bento-grid">
+                
+                <!-- Component: Interactive Widget -->
+                <div class="bento-card sys-reveal del-100 bento-col-2">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content">
+                        <span class="t-mono-label" style="margin-bottom: 24px;">Controls & Forms</span>
+                        
+                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 32px; margin-bottom: 40px;">
+                            <!-- Input -->
+                            <div style="position: relative;">
+                                <input type="email" class="form-input" placeholder="seu@email.com">
+                                <i data-lucide="mail" style="position: absolute; right: 0; top: 18px; color: var(--text-dim); width: 18px;"></i>
+                            </div>
+
+                            <!-- Pills -->
+                            <div class="pill-group" style="align-self: flex-start;">
+                                <div class="pill active">Consultoria</div>
+                                <div class="pill">Execução</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+                            <button class="btn-elegant" style="padding: 12px 24px;">
+                                <span>Salvar Etapa</span>
+                            </button>
+                            <span class="font-mono text-[10px]" style="font-size: 10px; color: var(--text-dim);">LAST_SYNC: JUST NOW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Component: Structural Card -->
+                <div class="bento-card sys-reveal del-200 bento-col-2" style="background-image: radial-gradient(circle at top right, rgba(217, 62, 21, 0.05), transparent 60%);">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content">
+                        <div style="display: flex; justify-content: space-between; items-start; margin-bottom: 32px;">
+                            <span class="badge" style="border-color: var(--c-orange); color: var(--c-orange);"><i data-lucide="check-circle-2" style="width: 12px;"></i> VALIDADO</span>
+                            <i data-lucide="file-check-2" style="width: 24px; color: var(--text-muted);"></i>
+                        </div>
+                        
+                        <h3 class="text-2xl font-semibold mb-4 tracking-tight">Análise Estrutural</h3>
+                        <p class="text-muted" style="margin-bottom: 40px;">
+                            A documentação técnica avançada traduzida para elementos modulares. Segurança perante fiscalizações surpresa através da organização preditiva de processos.
+                        </p>
+
+                        <a href="#" style="color: var(--text-main); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s;" onmouseover="this.style.color='var(--c-orange)'" onmouseout="this.style.color='var(--text-main)'">
+                            Expandir Diagnóstico <i data-lucide="arrow-right" style="width: 16px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Component: Metric / Technical -->
+                <div class="bento-card sys-reveal del-300">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content" style="align-items: center; justify-content: center; text-align: center;">
+                        <span class="t-mono-label">PPCI Status</span>
+                        <div style="position: relative; width: 120px; height: 120px; margin: 24px auto;">
+                            <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border-subtle)" stroke-width="4"></circle>
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--c-orange)" stroke-width="4" stroke-dasharray="251" stroke-dashoffset="60" style="transition: all 1s ease-out;"></circle>
+                            </svg>
+                            <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; font-weight: 700; font-family: var(--font-primary);">[OK]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Component: Testimonial/Team -->
+                <div class="bento-card sys-reveal del-400 bento-col-3">
+                    <div class="bento-glow-spot"></div>
+                    <div class="bento-content" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <span class="t-mono-label" style="margin-bottom: 24px;">DNA da Marca</span>
+                        <p class="text-xl leading-relaxed" style="font-weight: 300;">
+                            "Rigor técnico que transforma <span class="text-orange font-medium">risco</span> em <span class="text-orange font-medium">controle previsível</span>. Método é o que transforma a incerteza em estrutura sólida."
+                        </p>
+                        
+                        <div style="display: flex; gap: 16px; align-items: center; margin-top: 32px;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--bg-surface-hover); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle);">
+                                <i data-lucide="landmark" style="width: 20px; color: var(--text-muted);"></i>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; line-height: 1;">Cavallini (Chairô)</h4>
+                                <span class="t-mono-label" style="font-size: 10px;">Brandbook 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="margin-top: 100px; padding: 40px 5%; border-top: 1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 24px;">
+        <span class="t-mono-label" style="font-size: 0.75rem;">© 2026 CAVALLINI ASSESSORIA B2B</span>
+        <div style="display: flex; gap: 24px; align-items: center;">
+            <a href="#" class="t-mono-label" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--c-orange)'" onmouseout="this.style.color='var(--text-dim)'">Instalações</a>
+            <a href="#" class="t-mono-label" style="text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--c-orange)'" onmouseout="this.style.color='var(--text-dim)'">Documentação</a>
+            <span class="badge" style="font-size: 10px;">PRODUCED BY VIBE DESIGN</span>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Initialize Icons Safely
+        try {
+            lucide.createIcons();
+        } catch (e) {
+            console.error("Lucide icons could not be loaded", e);
+        }
+
+        // 2. Intersection Observer (Scroll Reveals)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.1
+        };
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.sys-reveal').forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // 3. Bento Glow Mouse Tracking
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 4. Theme Switcher Logic
+        const htmlDoc = document.documentElement;
+        const themeBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Dark theme needs specific treatment for absolute black/white text overwrites in the html content
+        
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlDoc.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                htmlDoc.setAttribute('data-theme', 'light');
+                themeIcon.setAttribute('data-lucide', 'sun');
+                // Adjusting the specific dark colors on cards
+                document.querySelectorAll('.dark\\:text-white').forEach(el => el.style.color = 'var(--text-main)');
+            } else {
+                htmlDoc.setAttribute('data-theme', 'dark');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

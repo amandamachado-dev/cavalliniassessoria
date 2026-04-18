@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cavallini Assessoria - Brandbook 2026</title>
+    <!-- Importing Urbanist font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --orange: #d93e15;
+            --black: #000000;
+            --gray: #E8E8E8;
+            --white: #ffffff;
+            --font-primary: 'Urbanist', sans-serif;
+            --font-secondary: 'Arial', sans-serif;
+            /* Fallback for NewBlack TypeFace */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: #f0f0f0;
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* Container that acts like a presentation deck */
+        .brandbook {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Each page represents a slide in the brandbook */
+        .page {
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sub-container for max width control */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        /* Animation class added via JS */
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Themes */
+        .dark {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .light {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .gray-bg {
+            background-color: var(--gray);
+            color: var(--black);
+        }
+
+        /* Footer marks on slides */
+        .slide-footer {
+            position: absolute;
+            bottom: 40px;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            line-height: 1.1;
+            margin-bottom: 0.2em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5em;
+            color: var(--orange);
+            text-transform: uppercase;
+        }
+
+        p.text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 800px;
+            margin-bottom: 1.5em;
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Personality Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .tag {
+            padding: 12px 24px;
+            border: 2px solid var(--black);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .dark .tag {
+            border-color: var(--white);
+        }
+
+        .tag:hover {
+            background-color: var(--orange);
+            border-color: var(--orange);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(217, 62, 21, 0.3);
+        }
+
+        /* Color Palette */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .color-swatch {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s ease;
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-10px);
+        }
+
+        .color-block {
+            height: 180px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 20px;
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .color-info strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .color-info span {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 3px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Typography Showcase */
+        .type-showcase {
+            margin-top: 40px;
+        }
+
+        .type-row {
+            display: flex;
+            align-items: baseline;
+            gap: 40px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .type-weight {
+            width: 150px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .type-sample {
+            font-size: 2.5rem;
+        }
+
+        /* Emphasized Text */
+        .accent-text {
+            color: var(--orange);
+        }
+
+        .huge-text {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .huge-text span {
+            display: block;
+        }
+
+        /* Image Placeholders */
+        .img-placeholder {
+            width: 100%;
+            height: 500px;
+            background: var(--gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Special Hero BG Animation */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, #222 0%, #000 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(217, 62, 21, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brandbook">
+
+        <!-- 01 CAPA -->
+        <section class="page dark">
+            <div class="hero-bg">
+                <div class="hero-glow"></div>
+            </div>
+            <div class="container" style="text-align: center;">
+                <h1 style="color: var(--white); font-weight: 900;">CAVALLINI<br>ASSESSORIA</h1>
+                <p
+                    style="font-size: 1.2rem; letter-spacing: 6px; text-transform: uppercase; margin-top: 30px; opacity: 0.7; font-weight: 300;">
+                    Brandbook • Boas práticas e estruturas • 2026</p>
+            </div>
+            <div class="slide-footer">
+                <span>01</span>
+                <span>Chairô</span>
+            </div>
+        </section>
+
+        <!-- 02 WELCOME -->
+        <section class="page light">
+            <div class="container grid-2">
+                <div>
+                    <h2>Welcome</h2>
+                    <p class="text">Este material reúne os principais direcionamentos visuais e verbais de Cavallini
+                        Assessoria e serve como referência para equipes internas, parceiros e fornecedores.</p>
+                    <p class="text">O objetivo é manter consistência e clareza em toda aplicação da marca, da
+                        comunicação interna a ações externas.</p>
+                    <p class="text">Este guia preserva a essência da marca, seus valores, seu modo de se expressar e o
+                        padrão esperado de apresentação. Por ser um documento vivo, pode evoluir com o tempo, mas deve
+                        ser a primeira fonte de consulta antes de qualquer adaptação ou produção.</p>
+                </div>
+                <div>
+                    <div class="img-placeholder">Imagem Conceitual</div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>02</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+        <!-- 05 CONTEXTO DA MARCA -->
+        <section class="page gray-bg">
+            <div class="container grid-2">
+                <div>
+                    <div class="img-placeholder" style="background:var(--white)">Fotografia Contexto</div>
+                </div>
+                <div>
+                    <h2>Contexto da Marca</h2>
+                    <p class="text">A Cavallini é uma empresa B2B de segurança contra incêndio, fundada em 2015, que dá
+                        continuidade ao legado do Eng. Carlos Alberto (LBQ). Atua com assessoria, consultoria,
+                        treinamentos e execução técnica (elétrica, hidráulica e obras civis), atendendo projetos de
+                        diferentes níveis de complexidade.</p>
+                    <p class="text">A marca nasce da necessidade de transmitir segurança, autoridade serena e rigor
+                        normativo, evitando dramatização ou estética alarmista, e posicionando-se como uma empresa que
+                        conduz o cliente do risco ao controle, com método e responsabilidade.</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>05</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+        <!-- 06 TRAÇOS DE PERSONALIDADE -->
+        <section class="page light">
+            <div class="container">
+                <h2>Traços de Personalidade</h2>
+                <p class="text">Toda marca forte nasce de uma estratégia clara. Neste projeto, exploramos personalidade,
+                    público, contexto e diferenciais para transformar ideias em linguagem visual.</p>
+
+                <div class="tags">
+                    <span class="tag">Masculina</span>
+                    <span class="tag">Madura</span>
+                    <span class="tag">Moderna</span>
+                    <span class="tag">Geométrica</span>
+                    <span class="tag">Tecnológica</span>
+                    <span class="tag">Séria</span>
+                    <span class="tag">Elegante</span>
+                    <span class="tag">Autoridade</span>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>06</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+        <!-- 08 DNA DA MARCA -->
+        <section class="page dark" style="text-align: center;">
+            <div class="container">
+                <h2 class="huge-text" style="margin-bottom: 20px;">
+                    Rigor técnico que<br>
+                    <span class="accent-text">transforma risco em<br>controle previsível</span>
+                </h2>
+                <p
+                    style="text-transform: uppercase; letter-spacing: 4px; opacity: 0.6; font-size: 0.9rem; font-weight: 600;">
+                    DNA da Marca – Cavallini (Chairô/2026)</p>
+            </div>
+            <div class="slide-footer">
+                <span>08</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+        <!-- 28 PALETA DE CORES -->
+        <section class="page light">
+            <div class="container">
+                <h2>Paleta de Cores</h2>
+                <p class="text">A paleta da Cavallini foi pensada e construída para traduzir, em cores e pigmentos, a
+                    forma como a marca se posiciona no mercado e perante seu público.</p>
+
+                <div class="color-palette">
+                    <!-- ORANGE -->
+                    <div class="color-swatch">
+                        <div class="color-block" style="background-color: var(--orange);"></div>
+                        <div class="color-info">
+                            <strong>Laranja / Moderna</strong>
+                            <span>HEX: #d93e15</span>
+                            <span>RGB: 217, 62, 21</span>
+                            <span>CMYK: 9, 89, 100, 2</span>
+                        </div>
+                    </div>
+                    <!-- BLACK -->
+                    <div class="color-swatch">
+                        <div class="color-block" style="background-color: var(--black);"></div>
+                        <div class="color-info">
+                            <strong>Preto / Elegante</strong>
+                            <span>HEX: #000000</span>
+                            <span>RGB: 0, 0, 0</span>
+                            <span>CMYK: 75, 68, 67, 90</span>
+                        </div>
+                    </div>
+                    <!-- GRAY -->
+                    <div class="color-swatch">
+                        <div class="color-block" style="background-color: var(--gray);"></div>
+                        <div class="color-info">
+                            <strong>Cinza / Séria</strong>
+                            <span>HEX: #E8E8E8</span>
+                            <span>RGB: 232, 232, 232</span>
+                            <span>CMYK: 8, 6, 6, 0</span>
+                        </div>
+                    </div>
+                    <!-- WHITE -->
+                    <div class="color-swatch" style="border: 1px solid #ddd;">
+                        <div class="color-block" style="background-color: var(--white);"></div>
+                        <div class="color-info">
+                            <strong>Branco / Simples</strong>
+                            <span>HEX: #ffffff</span>
+                            <span>RGB: 255, 255, 255</span>
+                            <span>CMYK: 0, 0, 0, 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>28</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+        <!-- 32 TIPOGRAFIA -->
+        <section class="page gray-bg">
+            <div class="container">
+                <h2>Tipografia Primária</h2>
+                <p class="text">A tipografia escolhida (Urbanist) reforça a presença contemporânea da marca com uma
+                    leitura limpa e consistente. Sua construção equilibrada sustenta hierarquia forte em títulos e boa
+                    legibilidade em textos.</p>
+
+                <div class="type-showcase">
+                    <div class="type-row">
+                        <div class="type-weight" style="font-weight: 300;">Light</div>
+                        <div class="type-sample" style="font-weight: 300;">Aa Bb Cc ABC 123</div>
+                    </div>
+                    <div class="type-row">
+                        <div class="type-weight" style="font-weight: 400;">Regular</div>
+                        <div class="type-sample" style="font-weight: 400;">Aa Bb Cc ABC 123</div>
+                    </div>
+                    <div class="type-row">
+                        <div class="type-weight" style="font-weight: 600;">SemiBold</div>
+                        <div class="type-sample" style="font-weight: 600;">Aa Bb Cc ABC 123</div>
+                    </div>
+                    <div class="type-row">
+                        <div class="type-weight" style="font-weight: 800;">ExtraBold</div>
+                        <div class="type-sample" style="font-weight: 800;">Aa Bb Cc ABC 123</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>32</span>
+                <span>CAVALLINI ASSESSORIA BRANDBOOK</span>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Simple Intersection Observer to fade in elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.container').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
