@@ -17,7 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Preload da Primeira Imagem do Hero (LCP Optimization) -->
-    <link rel="preload" as="image" href="../corredor-seguro.png" />
+    <link rel="preload" as="image" href="assets/images/corredor-seguro.png" />
 
     <!-- Iconify -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -197,7 +197,7 @@
             overflow: hidden;
         }
 
-        .block {
+        .shutter-block {
             position: absolute;
             width: 50.5%;
             height: 100%;
@@ -206,12 +206,12 @@
             will-change: transform;
         }
 
-        .block.left {
+        .shutter-block.left {
             left: 0;
             transform: translateX(-100%);
         }
 
-        .block.right {
+        .shutter-block.right {
             right: 0;
             transform: translateX(100%);
         }
@@ -231,21 +231,24 @@
 <body class="selection:bg-cavallini-orange selection:text-white" data-barba="wrapper">
     <!-- Premium Shutter Transition Overlay -->
     <div class="transition-overlay">
-        <div class="block left"></div>
-        <div class="block right"></div>
+        <div class="shutter-block left"></div>
+        <div class="shutter-block right"></div>
         <div class="transition-logo">
-            <img src="logo-c-removebg.png" alt="Cavallini Logo" class="w-24 md:w-32 h-auto filter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+            <img src="assets/images/logo-c-removebg.png" alt="Cavallini Logo"
+                class="w-24 md:w-32 h-auto filter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
         </div>
     </div>
 
 
     <!-- Header / Navbar -->
     <header class="fixed top-0 w-full z-50 glass-nav reveal-item" id="main-header">
-        <div class="max-w-[1440px] xl:max-w-[1600px] mx-auto px-6 md:px-12 xl:px-16 py-3 flex justify-between items-center">
+        <div
+            class="max-w-[1440px] xl:max-w-[1600px] mx-auto px-6 md:px-12 xl:px-16 py-3 flex justify-between items-center">
             <!-- Logo (Scale Breakout) -->
-            <a href="index.html#hero" class="flex items-center transition-transform duration-300 hover:scale-105 md:mr-10">
+            <a href="index.html#hero"
+                class="flex items-center transition-transform duration-300 hover:scale-105 md:mr-10">
                 <!-- Mantém a box height pequena p/ não esticar a navbar, mas infla a renderização da imagem com scale -->
-                <img src="logo-c-removebg.png" alt="Cavallini Engenharia Logo"
+                <img src="assets/images/logo-c-removebg.png" alt="Cavallini Engenharia Logo"
                     class="h-10 md:h-[50px] w-auto scale-110 md:scale-[1.2] origin-left object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             </a>
 
@@ -340,7 +343,9 @@
 
             <!-- PARTE ESQUERDA: Imagem da Transição -->
             <div class="w-full lg:w-[45%] h-[40vh] lg:h-[100vh] relative overflow-hidden z-10 shrink-0">
-                <div class="absolute inset-0 bg-[url('assessoria-reuniao.png')] bg-cover bg-center origin-center"></div>
+                <div
+                    class="absolute inset-0 bg-[url('assets/images/assessoria-reuniao.png')] bg-cover bg-center origin-center">
+                </div>
                 <!-- Gradient Overlay escuro amarrando com a marca -->
                 <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-black/60 z-10 pointer-events-none"></div>
             </div>
@@ -703,7 +708,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
     <script src="https://unpkg.com/@barba/core"></script>
-    <script src="js/app.js?v=2.1"></script>
+    <script src="assets/js/app.js?v=2.1"></script>
 </body>
 
 </html>
