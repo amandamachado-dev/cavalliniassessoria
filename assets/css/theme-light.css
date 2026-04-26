@@ -1,0 +1,457 @@
+/* LIGHT MODE (THEME OVERRIDES) v3.0 Design System Based */
+
+:root {
+    --ds-orange: #d93e15;
+    --ds-black: #000000;
+    --ds-dark: #1c1c1c;
+    --ds-gray: #e8e8e8;
+    --ds-soft: #f0ede8;
+    /* creme pedra — menos branco puro */
+    --ds-cream: #e8e4de;
+    /* tom mais quente para fundos secundários */
+    --ds-white: #ffffff;
+    --ds-muted: #a8a29e;
+    --ds-stone-500: #78716C;
+    --ds-stone-600: #57534E;
+    --ds-stone-700: #44403C;
+    --ds-stone-800: #292524;
+}
+
+html.light body {
+    background-color: var(--ds-soft);
+    color: var(--ds-dark);
+}
+
+/* OVERRIDE DA TELA INTEIRA (Hero, Nossas Soluções, AVCB, Consultoria) */
+html.light .bg-black:not(#hero) {
+    background-color: var(--ds-soft) !important;
+}
+
+html.light #hero.bg-black {
+    background-color: #000 !important;
+}
+
+html.light .bg-\[\#000000\] {
+    background-color: var(--ds-soft) !important;
+}
+
+/* OVERRIDE DA METADE PARA BAIXO (Parceiros, Quem Somos, Marca, Contato, Footer) */
+html.light .bg-\[\#030303\] {
+    background-color: var(--ds-cream) !important;
+}
+
+html.light footer.bg-\[\#030303\] {
+    background-color: #d6d1cb !important;
+}
+
+/* INVERSÃO DE TIPOGRAFIA GERAL */
+/* Garantir que textos brancos fiquem pretos */
+html.light h1:not(#hero h1),
+html.light h2:not(#hero h2),
+html.light h3:not(#hero h3),
+html.light .text-white:not(#hero *),
+html.light a.text-white:not(#hero *) {
+    color: var(--ds-black) !important;
+}
+
+/* Garantir que no Hero o texto continue branco/claro para contraste */
+html.light #hero h1,
+html.light #hero p,
+html.light #hero .text-white,
+html.light #hero .btn-glow span,
+html.light #hero .btn-glow iconify-icon,
+html.light #hero .btn-outline {
+    color: #ffffff !important;
+}
+
+html.light #hero .text-cavallini-gray,
+html.light #hero p.font-light {
+    color: #e8e8e8 !important;
+    opacity: 0.9 !important;
+}
+
+html.light #hero .btn-outline {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+/* EXCEÇÕES: Textos que devem continuar brancos (ex: botões laranja, ícones no botão) */
+html.light .bg-cavallini-orange .text-white,
+html.light .bg-cavallini-orange.text-white,
+html.light button.bg-cavallini-orange span,
+html.light button.bg-cavallini-orange iconify-icon,
+html.light a.bg-cavallini-orange span,
+html.light a.bg-cavallini-orange iconify-icon,
+html.light a.bg-cavallini-orange .text-white {
+    color: var(--ds-white) !important;
+}
+
+/* TEXTOS CINZAS / MUTED */
+/* Garantindo altíssima legibilidade (WCAG) convertendo claros do dark mode para tons chumbo no light mode */
+html.light .text-stone-400 {
+    color: var(--ds-stone-700) !important;
+}
+
+html.light .text-stone-500 {
+    color: var(--ds-stone-600) !important;
+}
+
+html.light .text-stone-600 {
+    color: var(--ds-stone-500) !important;
+}
+
+html.light .text-cavallini-muted {
+    color: var(--ds-stone-600) !important;
+}
+
+html.light .text-transparent {
+    color: transparent !important;
+}
+
+/* BORDAS */
+html.light .border-white\/5 {
+    border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .border-white\/10 {
+    border-color: var(--ds-gray) !important;
+}
+
+html.light .border-white\/20 {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+html.light .border-transparent {
+    border-color: transparent !important;
+}
+
+/* NAVBAR E MÓDULOS DE VIDRO (GLASS) */
+html.light .glass-nav {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .glass-nav a.text-white:hover,
+html.light .glass-nav button.text-white:hover {
+    color: var(--ds-orange) !important;
+}
+
+/* SEÇÃO SERVIÇOS — LIGHT MODE */
+/* Imagem de fundo colorida, sem grayscale e com boa opacidade */
+html.light #solucoes {
+    background-color: transparent !important;
+}
+
+html.light #solucoes .fixed-bg-custom {
+    opacity: 0.55 !important;
+    filter: none !important;
+    /* colorida */
+    grayscale: 0 !important;
+}
+
+/* Remove os overlays escuros que cobrem a foto */
+html.light #solucoes .bg-black\/50 {
+    background-color: transparent !important;
+}
+
+html.light #solucoes .absolute.top-0.inset-x-0.h-48 {
+    background: transparent !important;
+}
+
+html.light #solucoes .bg-\[radial-gradient\(circle_at_center\,transparent_30\%\,\#000000_100\%\)\] {
+    background: transparent !important;
+    opacity: 0 !important;
+}
+
+/* FAIXA BRANCA EXCLUSIVA SOBRE O TÍTULO
+   Pseudo-elemento posicionado atrás do conteúdo mas na frente da imagem.
+   Cobre a área do header (badge + h2 + parágrafo) e esfumaça para transparente abaixo. */
+html.light #solucoes::before {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    top: 0;
+    height: 420px;
+    /* Creme quente em vez de branco puro — suave e legível */
+    background: linear-gradient(to bottom,
+            rgba(240, 237, 232, 0.96) 0%,
+            rgba(240, 237, 232, 0.92) 40%,
+            rgba(240, 237, 232, 0.60) 68%,
+            rgba(240, 237, 232, 0.00) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* FORMULÁRIO DE CONTATO PREMIUM */
+/* O fundo original é #080808/95, nós mudamos para White com Glass */
+html.light .bg-\[\#080808\]\/95 {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* INPUTS, TEXTAREA E SELECT */
+html.light input.bg-white\/5,
+html.light textarea.bg-white\/5,
+html.light select.bg-white\/5 {
+    background-color: var(--ds-soft) !important;
+    color: var(--ds-dark) !important;
+    border-color: var(--ds-gray) !important;
+}
+
+html.light input.bg-white\/5:focus,
+html.light textarea.bg-white\/5:focus,
+html.light select.bg-white\/5:focus {
+    background-color: var(--ds-white) !important;
+    border-color: var(--ds-orange) !important;
+}
+
+html.light .placeholder-stone-600::placeholder {
+    color: var(--ds-stone-500) !important;
+}
+
+/* Options do Select */
+html.light select option.bg-\[\#111111\] {
+    background-color: var(--ds-white) !important;
+    color: var(--ds-dark) !important;
+}
+
+/* SHIMMER TEXT (Da parte de design system 3) */
+html.light .shimmer-text {
+    background: linear-gradient(90deg, var(--ds-stone-700) 0%, var(--ds-orange) 50%, var(--ds-stone-700) 100%) !important;
+    background-size: 200% auto !important;
+    color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    animation: shimmer 4s linear infinite !important;
+}
+
+/* TRANSIÇÕES E GRADIENTES OVERLAY */
+/* Creme pedra em vez de branco puro — overlays mais suaves */
+html.light .from-\[\#030303\] {
+    --tw-gradient-from: var(--ds-cream) var(--tw-gradient-from-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(232, 228, 222, 0)) !important;
+}
+
+html.light .via-\[\#030303\]\/90 {
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(232, 228, 222, 0.75) var(--tw-gradient-via-position), var(--tw-gradient-to, rgba(232, 228, 222, 0)) !important;
+}
+
+html.light .via-\[\#030303\]\/80 {
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(232, 228, 222, 0.65) var(--tw-gradient-via-position), var(--tw-gradient-to, rgba(232, 228, 222, 0)) !important;
+}
+
+/* Fumaça no footer / transição fina */
+html.light .from-black {
+    --tw-gradient-from: #d6d1cb var(--tw-gradient-from-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(214, 209, 203, 0)) !important;
+}
+
+/* Hero Overlay - Mais Leve no Light Mode */
+html.light .hero-overlay {
+    background: linear-gradient(90deg,
+            rgba(0, 0, 0, 0.65) 0%,
+            rgba(0, 0, 0, 0.45) 50%,
+            rgba(0, 0, 0, 0.20) 100%),
+        linear-gradient(0deg,
+            rgba(0, 0, 0, 0.70) 0%,
+            rgba(0, 0, 0, 0.10) 60%,
+            rgba(0, 0, 0, 0.30) 100%) !important;
+}
+
+/* Outros degradês e fundos fracos */
+html.light .bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .from-black\/20 {
+    --tw-gradient-from: rgba(255, 255, 255, 0.2) var(--tw-gradient-from-position) !important;
+}
+
+html.light .to-black\/60 {
+    --tw-gradient-to: rgba(255, 255, 255, 0.9) var(--tw-gradient-to-position) !important;
+}
+
+/* ÍCONES E BOTÕES (Btn Outline) */
+html.light .btn-outline {
+    border-color: var(--ds-dark) !important;
+    color: var(--ds-dark) !important;
+}
+
+html.light .btn-outline:hover {
+    background-color: var(--ds-dark) !important;
+    color: var(--ds-white) !important;
+}
+
+/* Override para o Hero: Botão Outline volta a ser branco no hover com texto preto */
+html.light #hero .btn-outline:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+html.light #hero .btn-outline:hover iconify-icon {
+    color: #000000 !important;
+}
+
+/* BARBA JS OVERLAYS E MOBILE MENU */
+html.light .shutter-block {
+    background: var(--ds-soft) !important;
+}
+
+html.light #mobile-menu-overlay {
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+html.light #mobile-menu-overlay .text-white {
+    color: var(--ds-black) !important;
+}
+
+html.light #mobile-menu-overlay::before,
+html.light #mobile-menu-overlay::after {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Toaster Premium */
+html.light #premium-toaster {
+    background-color: var(--ds-white) !important;
+    border-color: var(--ds-gray) !important;
+}
+
+html.light #premium-toaster .text-white {
+    color: var(--ds-black) !important;
+}
+
+/* IMAGENS E LOGOS (DEDICADAS PARA O LIGHT MODE) */
+/* Shutter transition logo e Navbar logo usam a logo "C" preta/laranja */
+html.light .transition-logo img,
+html.light header img {
+    content: url("../images/logo-preto-laranja-c.png") !important;
+    filter: none !important;
+    object-fit: contain;
+    width: 36px !important;
+}
+
+@media (min-width: 768px) {
+    html.light header img {
+        width: 42px !important;
+    }
+}
+
+/* Hero: mesma logo do dark mode em ambos os temas (fundo do Hero é escuro nos dois) */
+
+/* Para fundos que são "bg-[url('...')]" como parceiros / ícones e marcas que invertam se forem PNGs brancos */
+html.light img[alt="Grafismo fundo"] {
+    filter: invert(1) !important;
+    opacity: 0.05 !important;
+}
+
+/* Correção visual para os cards com group-hover text-white original e gradient de fundo de card */
+html.light .group:hover .text-white {
+    color: var(--ds-orange) !important;
+}
+
+/* Gradients in Cards (para outros contextos fora de #solucoes) */
+html.light .from-\[\#050505\] {
+    --tw-gradient-from: var(--ds-soft) var(--tw-gradient-from-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+html.light .via-\[\#050505\]\/60 {
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(240, 237, 232, 0.8) var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+
+html.light .to-\[\#050505\]\/10 {
+    --tw-gradient-to: rgba(240, 237, 232, 0.1) var(--tw-gradient-to-position) !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARDS DE SERVIÇOS (#solucoes) — VISUAL DARK MODE PRESERVADO
+   ═══════════════════════════════════════════════════════ */
+
+/* Restaura gradiente — tom chumbo #111111 (menos pesado que #050505) */
+html.light #solucoes .group .from-\[\#050505\] {
+    --tw-gradient-from: #111111 var(--tw-gradient-from-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(17, 17, 17, 0)) !important;
+}
+
+html.light #solucoes .group .via-\[\#050505\]\/60 {
+    --tw-gradient-stops: var(--tw-gradient-from), rgba(17, 17, 17, 0.52) var(--tw-gradient-via-position), var(--tw-gradient-to, rgba(17, 17, 17, 0)) !important;
+}
+
+html.light #solucoes .group .to-\[\#050505\]\/10 {
+    --tw-gradient-to: rgba(17, 17, 17, 0.06) var(--tw-gradient-to-position) !important;
+}
+
+/* Restaura borda sutil escura dos cards */
+html.light #solucoes .group {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Restaura textos brancos dentro dos cards */
+html.light #solucoes .group h3,
+html.light #solucoes .group p {
+    color: #ffffff !important;
+}
+
+/* Hover: título vira laranja (igual dark mode) */
+html.light #solucoes .group:hover h3 {
+    color: var(--ds-orange) !important;
+}
+
+/* Borda laranja no hover (igual dark mode) */
+html.light #solucoes .group:hover {
+    border-color: rgba(217, 62, 21, 0.40) !important;
+}
+
+/* Último card (Execução & Manutenção) — imagem naturalmente mais escura,
+   brightness compensa para ficar uniforme com os demais */
+html.light #solucoes .group:nth-child(4)>div:first-child {
+    filter: grayscale(1) brightness(2.2) !important;
+}
+
+html.light #solucoes .group:nth-child(4):hover>div:first-child {
+    filter: grayscale(0) brightness(1.6) !important;
+}
+
+/* Divs que simulam white/5 no modo dark — usamos creme com borda sutil */
+html.light .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    border-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+html.light .border-white\/10 {
+    border-color: var(--ds-gray) !important;
+}
+
+html.light .hover\:border-white\/40:hover {
+    border-color: var(--ds-muted) !important;
+}
+
+html.light .group:hover .group-hover\:bg-white\/10 {
+    background-color: var(--ds-gray) !important;
+}
+
+/* Watermark Footer Cavallini Text */
+html.light footer .text-\[22vw\],
+html.light footer .md\:text-\[16vw\] {
+    color: var(--ds-dark) !important;
+    opacity: 0.03 !important;
+}
+
+/* SMOOTH THEME TRANSITION */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+    transition: background-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        color 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        fill 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        filter 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 600ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0s !important;
+}

@@ -156,10 +156,56 @@ function initContactForm() {
     };
 }
 
+function initThemeToggle() {
+    const toggle = document.getElementById("theme-toggle");
+    const iconMoon = document.getElementById("icon-moon");
+    const iconSun  = document.getElementById("icon-sun");
+
+    function applyTheme(theme) {
+        if (theme === "light") {
+            document.documentElement.classList.add("light");
+            if (iconMoon) iconMoon.classList.add("hidden");
+            if (iconSun)  iconSun.classList.remove("hidden");
+        } else {
+            document.documentElement.classList.remove("light");
+            if (iconMoon) iconMoon.classList.remove("hidden");
+            if (iconSun)  iconSun.classList.add("hidden");
+        }
+    }
+
+    if (toggle) {
+        toggle.onclick = (e) => {
+            e.preventDefault();
+
+            // Ativa transição suave globalmente
+            document.documentElement.classList.add("theme-transitioning");
+
+            const isLight = document.documentElement.classList.contains("light");
+            const newTheme = isLight ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            applyTheme(newTheme);
+
+            // Desativa após a conclusão da animação para não bugar hovers
+            setTimeout(() => {
+                document.documentElement.classList.remove("theme-transitioning");
+            }, 600);
+        };
+    }
+
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+        applyTheme(saved);
+    } else {
+        const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+        applyTheme(prefersLight ? "light" : "dark");
+    }
+}
+
 function reinitGlobalComponents(container) {
     initMobileMenu();
     initScrollObserver();
     handleHashNavigation();
+    initThemeToggle();
 
     // Auto-close menu on transition
     const mobileOverlay = document.getElementById("mobile-menu-overlay");

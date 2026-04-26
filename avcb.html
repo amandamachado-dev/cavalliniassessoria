@@ -5,6 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cavallini - AVCB e Engenharia de Combate a Incêndio</title>
+    <!-- Favicon Dinâmico -->
+    <link rel="icon" type="image/png" href="assets/images/logo-preto-laranja-c.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="assets/images/logo-branco-laranja-c.png" media="(prefers-color-scheme: dark)">
 
     <!-- Fonts: Inter (Body) & Space Grotesk (Display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +18,9 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Theme Light -->
+    <link rel="stylesheet" href="assets/css/theme-light.css">
 
     <!-- Preload da Primeira Imagem do Hero (LCP Optimization) -->
     <link rel="preload" as="image" href="assets/images/corredor-seguro.png" />
@@ -234,7 +240,7 @@
         <div class="shutter-block left"></div>
         <div class="shutter-block right"></div>
         <div class="transition-logo">
-            <img src="assets/images/logo-c-removebg.png" alt="Cavallini Logo"
+            <img src="assets/images/logo-branco-laranja-c.png" alt="Cavallini Logo"
                 class="w-24 md:w-32 h-auto filter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
         </div>
     </div>
@@ -248,7 +254,7 @@
             <a href="index.html#hero"
                 class="flex items-center transition-transform duration-300 hover:scale-105 md:mr-10">
                 <!-- Mantém a box height pequena p/ não esticar a navbar, mas infla a renderização da imagem com scale -->
-                <img src="assets/images/logo-c-removebg.png" alt="Cavallini Engenharia Logo"
+                <img src="assets/images/logo-branco-laranja-c.png" alt="Cavallini Engenharia Logo"
                     class="h-10 md:h-[50px] w-auto scale-110 md:scale-[1.2] origin-left object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             </a>
 
@@ -293,6 +299,15 @@
                     <iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>
                     S.O.S Incêndio
                 </a>
+
+                <!-- Light Mode Toggle -->
+                <button id="theme-toggle"
+                    class="text-white hover:text-cavallini-orange transition-colors flex items-center"
+                    aria-label="Alternar tema">
+                    <iconify-icon id="icon-moon" icon="solar:moon-linear" class="text-[22px]"></iconify-icon>
+                    <iconify-icon id="icon-sun" icon="solar:sun-linear" class="text-[22px] hidden"></iconify-icon>
+                </button>
+
                 <!-- Ícone Mobile Menu -->
                 <button id="mobile-menu-btn"
                     class="lg:hidden text-white hover:text-cavallini-orange transition-colors text-3xl flex items-center">
@@ -318,6 +333,15 @@
                 Somos</a>
             <a href="index.html#solucoes"
                 class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Serviços</a>
+            <a href="avcb.html"
+                class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">AVCB</a>
+            <a href="consultoria.html"
+                class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Consultoria</a>
+            <a href="projetos.html"
+                class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Projetos</a>
+            <a href="execucao-manutencao.html"
+                class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Execução
+                e Manut.</a>
             <a href="faq.html"
                 class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">FAQ</a>
             <a href="index.html#contato"

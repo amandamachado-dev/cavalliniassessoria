@@ -5,6 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cavallini - AVCB e Engenharia de Combate a Incêndio</title>
+    <!-- Favicon Dinâmico -->
+    <link rel="icon" type="image/png" href="assets/images/logo-preto-laranja-c.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="assets/images/logo-branco-laranja-c.png" media="(prefers-color-scheme: dark)">
 
     <!-- Fonts: Inter (Body) & Space Grotesk (Display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +18,9 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Theme Light -->
+    <link rel="stylesheet" href="assets/css/theme-light.css">
 
     <!-- Preload da Primeira Imagem do Hero (LCP Optimization) -->
     <link rel="preload" as="image" href="assets/images/corredor-seguro.png" />
@@ -114,18 +120,18 @@
             will-change: transform, opacity;
         }
 
-        /* Overlay Gradiente (Escurecido para Elegância Extrema) */
+        /* Overlay Gradiente (Ajuste Sutil: Equilíbrio entre visibilidade e profundidade) */
         .hero-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(90deg,
-                    rgba(0, 0, 0, 0.95) 0%,
-                    rgba(0, 0, 0, 0.85) 50%,
-                    rgba(0, 0, 0, 0.6) 100%),
+                    rgba(0, 0, 0, 0.90) 0%,
+                    rgba(0, 0, 0, 0.70) 50%,
+                    rgba(0, 0, 0, 0.40) 100%),
                 linear-gradient(0deg,
-                    rgba(0, 0, 0, 0.98) 0%,
-                    rgba(0, 0, 0, 0.3) 60%,
-                    rgba(0, 0, 0, 0.5) 100%);
+                    rgba(0, 0, 0, 0.92) 0%,
+                    rgba(0, 0, 0, 0.20) 60%,
+                    rgba(0, 0, 0, 0.45) 100%);
             z-index: 1;
         }
 
@@ -259,8 +265,8 @@
         <div class="shutter-block left"></div>
         <div class="shutter-block right"></div>
         <div class="transition-logo">
-            <img src="assets/images/logo-c-removebg.png" alt="Cavallini Logo"
-                class="w-24 md:w-40 h-auto filter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+            <img src="assets/images/logo-branco-laranja-c.png" alt="Cavallini Logo"
+                class="w-20 md:w-24 h-auto filter drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
         </div>
     </div>
 
@@ -269,10 +275,9 @@
     <header class="fixed top-0 w-full z-50 glass-nav reveal-item" id="main-header">
         <div class="max-w-[1440px] mx-auto px-6 md:px-12 py-3 flex justify-between items-center">
             <!-- Logo (Scale Breakout) -->
-            <a href="index.html#hero" class="flex items-center transition-transform duration-300 hover:scale-105 md:mr-10">
-                <!-- Mantém a box height pequena p/ não esticar a navbar, mas infla a renderização da imagem com scale -->
-                <img src="assets/images/logo-c-removebg.png" alt="Cavallini Engenharia Logo"
-                    class="h-10 md:h-[50px] w-auto scale-110 md:scale-[1.2] origin-left object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            <a href="index.html#hero" class="flex items-center transition-transform hover:scale-105">
+                <img src="assets/images/logo-branco-laranja-c.png" alt="Cavallini Engenharia Logo"
+                    class="h-9 md:h-[42px] w-[36px] md:w-[42px] origin-left object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             </a>
 
             <!-- Links de Navegação (Desktop) -->
@@ -316,6 +321,17 @@
                     <iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>
                     S.O.S Incêndio
                 </a>
+
+                <!-- Light Mode Toggle -->
+                <button id="theme-toggle"
+                    class="text-white hover:text-cavallini-orange transition-colors flex items-center"
+                    aria-label="Alternar tema">
+                    <!-- Ícone Dark Mode (lua) — visível no dark, oculto no light -->
+                    <iconify-icon id="icon-moon" icon="solar:moon-linear" class="text-[22px]"></iconify-icon>
+                    <!-- Ícone Light Mode (sol) — oculto no dark, visível no light -->
+                    <iconify-icon id="icon-sun" icon="solar:sun-linear" class="text-[22px] hidden"></iconify-icon>
+                </button>
+
                 <!-- Ícone Mobile Menu -->
                 <button id="mobile-menu-btn"
                     class="lg:hidden text-white hover:text-cavallini-orange transition-colors text-3xl flex items-center">
@@ -347,6 +363,9 @@
                 class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Consultoria</a>
             <a href="projetos.html"
                 class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Projetos</a>
+            <a href="execucao-manutencao.html"
+                class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">Execução
+                e Manut.</a>
             <a href="faq.html"
                 class="mobile-link text-3xl font-display font-medium text-white hover:text-cavallini-orange transition-colors opacity-0 translate-y-8">FAQ</a>
             <a href="index.html#contato"
@@ -396,12 +415,12 @@
             <div
                 class="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 pt-24 pb-8 flex flex-col items-center justify-center h-full">
 
-                <!-- H1 Logo Máxima Visibilidade (AUMENTADA) -->
+                <!-- H1 Logo Máxima Visibilidade -->
                 <h1 class="hero-reveal mb-6 md:mb-10 w-full flex justify-center">
                     <span class="sr-only">Cavallini Engenharia e Assessoria de AVCB</span>
-                    <!-- Logo consideravelmente maior (até 1000px ou 55% da tela) -->
-                    <img src="assets/images/logo-semfundo.png" alt="Cavallini Engenharia"
-                        class="w-auto h-auto max-w-[95vw] md:max-w-[850px] lg:max-w-[1000px] max-h-[45vh] lg:max-h-[55vh] object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.1)] mx-auto">
+                    <!-- Logo completa dark mode (branco + laranja) | light mode trocado via CSS -->
+                    <img src="assets/images/logo-branco-laranja-mode dark.png" alt="Cavallini Engenharia"
+                        class="w-auto h-auto max-w-[72vw] md:max-w-[420px] lg:max-w-[480px] max-h-[28vh] lg:max-h-[32vh] object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.12)] mx-auto">
                 </h1>
 
                 <div class="w-full flex justify-center">
@@ -511,11 +530,11 @@
                 </div>
 
                 <!-- CARDS GRID -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full">
 
                     <!-- CARD 1: Emissão de AVCB -->
                     <a href="avcb.html"
-                        class="reveal-on-scroll delay-100 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[380px] md:h-[450px] cursor-pointer focus-within:ring-2 focus-within:ring-cavallini-orange">
+                        class="reveal-on-scroll delay-100 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[280px] md:h-[450px] cursor-pointer focus-within:ring-2 focus-within:ring-cavallini-orange">
                         <!-- Background Image -->
                         <div
                             class="absolute inset-0 bg-[url('assets/images/avcb.png')] bg-cover bg-center grayscale group-hover:grayscale-0 transform transition-all duration-700 z-0 pointer-events-none origin-center">
@@ -541,7 +560,7 @@
 
                     <!-- CARD 2: Consultoria -->
                     <a href="consultoria.html"
-                        class="reveal-on-scroll delay-300 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[380px] md:h-[450px] cursor-pointer">
+                        class="reveal-on-scroll delay-300 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[280px] md:h-[450px] cursor-pointer">
                         <!-- Background Image -->
                         <div
                             class="absolute inset-0 bg-[url('assets/images/assessoria-reuniao.png')] bg-cover bg-center grayscale group-hover:grayscale-0 transform transition-all duration-700 group-hover:scale-105 z-0 pointer-events-none">
@@ -564,9 +583,9 @@
                         </div>
                     </a>
 
-                    <!-- CARD 3: Execução -->
+                    <!-- CARD 3: Projetos -->
                     <a href="projetos.html"
-                        class="reveal-on-scroll delay-500 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[380px] md:h-[450px] cursor-pointer">
+                        class="reveal-on-scroll delay-500 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[280px] md:h-[450px] cursor-pointer">
                         <!-- Background Image -->
                         <div
                             class="absolute inset-0 bg-[url('assets/images/projetos.png')] bg-cover bg-center grayscale group-hover:grayscale-0 transform transition-all duration-700 group-hover:scale-105 z-0 pointer-events-none">
@@ -581,10 +600,34 @@
                         <div class="relative z-20 p-6 md:p-8 flex flex-col">
                             <h3
                                 class="font-display font-bold text-lg md:text-xl text-white uppercase tracking-wide mb-2 group-hover:text-cavallini-orange transition-colors duration-300">
-                                Projetos &<br />Execução</h3>
+                                Projetos de Engenharia</h3>
                             <p
                                 class="text-xs md:text-sm font-sans text-cavallini-gray leading-relaxed font-light opacity-90 transition-opacity duration-300">
-                                Do dimensionamento normativo à instalação física rigorosa das soluções de prevenção.</p>
+                                Dimensionamento normativo exigido pelo Corpo de Bombeiros.</p>
+                        </div>
+                    </a>
+
+                    <!-- CARD 4: Execução -->
+                    <a href="execucao-manutencao.html"
+                        class="reveal-on-scroll delay-700 group relative rounded-xl md:rounded-[2rem] border border-white/5 hover:border-cavallini-orange/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(217,62,21,0.15)] overflow-hidden flex flex-col justify-end h-[280px] md:h-[450px] cursor-pointer">
+                        <!-- Background Image -->
+                        <div
+                            class="absolute inset-0 bg-[url('assets/images/trabalhador-costas-com-logo.png')] bg-cover bg-center grayscale group-hover:grayscale-0 transform transition-all duration-700 group-hover:scale-105 z-0 pointer-events-none">
+                        </div>
+
+                        <!-- Gradient Overlay -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-[#050505]/10 opacity-90 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none">
+                        </div>
+
+                        <!-- Texts -->
+                        <div class="relative z-20 p-6 md:p-8 flex flex-col">
+                            <h3
+                                class="font-display font-bold text-lg md:text-xl text-white uppercase tracking-wide mb-2 group-hover:text-cavallini-orange transition-colors duration-300">
+                                Execução &<br />Manutenção</h3>
+                            <p
+                                class="text-xs md:text-sm font-sans text-cavallini-gray leading-relaxed font-light opacity-90 transition-opacity duration-300">
+                                Instalação física rigorosa das soluções de prevenção e sistemas.</p>
                         </div>
                     </a>
 
@@ -624,75 +667,220 @@
                     class="animate-marquee flex items-center w-max opacity-80 hover:opacity-100 transition-opacity duration-700">
 
                     <!-- LISTA 1 -->
-                    <div class="flex items-center gap-16 md:gap-32 pr-16 md:pr-32">
-                        <div
-                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-tighter text-white">FORMULA
-                                1</span>
-                        </div>
+                    <div class="flex items-center gap-14 md:gap-28 pr-14 md:pr-28">
+
+                        <!-- Coco Bambu -->
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
                             <iconify-icon icon="solar:leaf-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span class="font-display font-bold text-2xl md:text-4xl text-white">COP 30</span>
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Coco
+                                Bambu</span>
                         </div>
+
+                        <!-- Grupo Dahruj -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:car-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Grupo
+                                Dahruj</span>
+                        </div>
+
+                        <!-- Autódromo de Interlagos -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:flag-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Autódromo
+                                Interlagos</span>
+                        </div>
+
+                        <!-- Fórmula 1 -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:racing-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tighter text-white">Fórmula
+                                1</span>
+                        </div>
+
+                        <!-- Shopping Litoral Plaza -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:shop-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Litoral
+                                Plaza</span>
+                        </div>
+
+                        <!-- Goya Perfumaria -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:star-shine-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Goya
+                                Perfumaria</span>
+                        </div>
+
+                        <!-- Casa do Lojista -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:home-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Casa do
+                                Lojista</span>
+                        </div>
+
+                        <!-- Vonny Cosméticos -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:cosmetic-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Vonny
+                                Cosméticos</span>
+                        </div>
+
+                        <!-- Pontual Construtora -->
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
                             <iconify-icon icon="solar:buildings-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span class="font-display font-bold text-2xl md:text-4xl text-white">GRUPO MOURA</span>
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Pontual
+                                Construtora</span>
                         </div>
+
+                        <!-- COP30 -->
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <iconify-icon icon="solar:plain-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-tight text-white">AEROPORTOS</span>
+                            <iconify-icon icon="solar:global-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">COP
+                                30</span>
                         </div>
+
+                        <!-- GL Events -->
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-widest text-white">PETROBRAS</span>
+                            <iconify-icon icon="solar:calendar-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">GL
+                                Events</span>
                         </div>
+
+                        <!-- Vegus Construtora -->
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:city-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Vegus
+                                Construtora</span>
+                        </div>
+
                     </div>
 
-                    <!-- LISTA 2 (CÓPIA EXATA PARA O LOOP 100% INVISÍVEL) -->
-                    <div class="flex items-center gap-16 md:gap-32 pr-16 md:pr-32">
-                        <div
-                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-tighter text-white">FORMULA
-                                1</span>
-                        </div>
+                    <!-- LISTA 2 — CÓPIA EXATA PARA O LOOP INFINITO -->
+                    <div class="flex items-center gap-14 md:gap-28 pr-14 md:pr-28">
+
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
                             <iconify-icon icon="solar:leaf-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span class="font-display font-bold text-2xl md:text-4xl text-white">COP 30</span>
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Coco
+                                Bambu</span>
                         </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:car-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Grupo
+                                Dahruj</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:flag-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Autódromo
+                                Interlagos</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:racing-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tighter text-white">Fórmula
+                                1</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:shop-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Litoral
+                                Plaza</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:star-shine-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Goya
+                                Perfumaria</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:home-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Casa do
+                                Lojista</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:cosmetic-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Vonny
+                                Cosméticos</span>
+                        </div>
+
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
                             <iconify-icon icon="solar:buildings-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span class="font-display font-bold text-2xl md:text-4xl text-white">GRUPO MOURA</span>
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Pontual
+                                Construtora</span>
                         </div>
+
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <iconify-icon icon="solar:plain-bold-duotone"
-                                class="text-4xl md:text-5xl mr-2 text-white"></iconify-icon>
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-tight text-white">AEROPORTOS</span>
+                            <iconify-icon icon="solar:global-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">COP
+                                30</span>
                         </div>
+
                         <div
                             class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
-                            <span
-                                class="font-display font-bold text-2xl md:text-4xl tracking-widest text-white">PETROBRAS</span>
+                            <iconify-icon icon="solar:calendar-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">GL
+                                Events</span>
                         </div>
+
+                        <div
+                            class="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default hover:scale-105">
+                            <iconify-icon icon="solar:city-bold-duotone"
+                                class="text-3xl md:text-4xl mr-2 text-white"></iconify-icon>
+                            <span class="font-display font-bold text-xl md:text-3xl tracking-tight text-white">Vegus
+                                Construtora</span>
+                        </div>
+
                     </div>
 
                 </div>
-            </div>
 
         </section>
 
