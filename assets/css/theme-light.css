@@ -23,15 +23,20 @@ html.light body {
 }
 
 /* OVERRIDE DA TELA INTEIRA (Hero, Nossas Soluções, AVCB, Consultoria) */
-html.light .bg-black:not(#hero) {
+html.light .bg-black:not(#hero):not(#solucoes) {
     background-color: var(--ds-soft) !important;
+}
+
+/* Forçamos o Solucoes a ser light no modo light via CSS */
+html.light #solucoes {
+    background-color: var(--ds-cream) !important;
 }
 
 html.light #hero.bg-black {
     background-color: #000 !important;
 }
 
-html.light .bg-\[\#000000\] {
+html.light .bg-\[\#000000\]:not(#solucoes) {
     background-color: var(--ds-soft) !important;
 }
 
@@ -49,31 +54,45 @@ html.light footer.bg-\[\#030303\] {
 html.light h1:not(#hero h1),
 html.light h2:not(#hero h2),
 html.light h3:not(#hero h3),
-html.light .text-white:not(#hero *),
-html.light a.text-white:not(#hero *) {
+html.light .text-white:not(#hero *):not(header *),
+html.light a.text-white:not(#hero *):not(header *) {
     color: var(--ds-black) !important;
 }
 
-/* Garantir que no Hero o texto continue branco/claro para contraste */
-html.light #hero h1,
-html.light #hero p,
-html.light #hero .text-white,
-html.light #hero .btn-glow span,
-html.light #hero .btn-glow iconify-icon,
-html.light #hero .btn-outline {
-    color: #ffffff !important;
+/* Inversão de textos em Soluções para o Light Mode (ESPECÍFICO) */
+html.light #solucoes h2,
+html.light #quem-somos h2 {
+    color: var(--ds-black) !important;
 }
 
-html.light #hero .text-cavallini-gray,
-html.light #hero p.font-light {
-    color: #e8e8e8 !important;
-    opacity: 0.9 !important;
+html.light #solucoes h2 span,
+html.light #quem-somos h2 span {
+    color: var(--ds-orange) !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
 }
 
-html.light #hero .btn-outline {
-    border-color: rgba(255, 255, 255, 0.3) !important;
+html.light #solucoes p,
+html.light #quem-somos p {
+    color: var(--ds-stone-700) !important;
 }
 
+html.light #solucoes p strong {
+    color: var(--ds-black) !important;
+}
+
+/* Removemos os gradientes pretos do parallax em Soluções Light Mode */
+html.light #solucoes .absolute.inset-0.bg-black\/50,
+html.light #solucoes .bg-gradient-to-b.from-black,
+html.light #solucoes .bg-\[radial-gradient\(circle_at_center\,transparent_30\%\,\#000000_100\%\)\] {
+    display: none !important;
+}
+
+/* Deixamos a imagem de fundo (trabalhadores) muito sutil no light mode */
+html.light #solucoes .bg-\[url\(\'assets\/images\/trabalhadores\.png\'\)\] {
+    opacity: 0.05 !important;
+}
 
 /* EXCEÇÕES: Textos que devem continuar brancos (ex: botões laranja, ícones no botão) */
 html.light .bg-cavallini-orange .text-white,
@@ -87,20 +106,19 @@ html.light a.bg-cavallini-orange .text-white {
 }
 
 /* TEXTOS CINZAS / MUTED */
-/* Garantindo altíssima legibilidade (WCAG) convertendo claros do dark mode para tons chumbo no light mode */
-html.light .text-stone-400 {
+html.light .text-stone-400:not(#solucoes *) {
     color: var(--ds-stone-700) !important;
 }
 
-html.light .text-stone-500 {
+html.light .text-stone-500:not(#solucoes *) {
     color: var(--ds-stone-600) !important;
 }
 
-html.light .text-stone-600 {
+html.light .text-stone-600:not(#solucoes *) {
     color: var(--ds-stone-500) !important;
 }
 
-html.light .text-cavallini-muted {
+html.light .text-cavallini-muted:not(#solucoes *) {
     color: var(--ds-stone-600) !important;
 }
 
@@ -109,84 +127,23 @@ html.light .text-transparent {
 }
 
 /* BORDAS */
-html.light .border-white\/5 {
+html.light .border-white\/5:not(header *) {
     border-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-html.light .border-white\/10 {
+html.light .border-white\/10:not(header *) {
     border-color: var(--ds-gray) !important;
 }
 
-html.light .border-white\/20 {
+html.light .border-white\/20:not(header *) {
     border-color: rgba(0, 0, 0, 0.15) !important;
 }
 
-html.light .border-transparent {
+html.light .border-transparent:not(header *) {
     border-color: transparent !important;
 }
 
-/* NAVBAR E MÓDULOS DE VIDRO (GLASS) */
-html.light .glass-nav {
-    background: #ffffff !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-}
-
-html.light .glass-nav a.text-white:hover,
-html.light .glass-nav button.text-white:hover {
-    color: var(--ds-orange) !important;
-}
-
-/* SEÇÃO SERVIÇOS — LIGHT MODE */
-/* Imagem de fundo colorida, sem grayscale e com boa opacidade */
-html.light #solucoes {
-    background-color: transparent !important;
-}
-
-html.light #solucoes .fixed-bg-custom {
-    opacity: 0.55 !important;
-    filter: none !important;
-    /* colorida */
-    grayscale: 0 !important;
-}
-
-/* Remove os overlays escuros que cobrem a foto */
-html.light #solucoes .bg-black\/50 {
-    background-color: transparent !important;
-}
-
-html.light #solucoes .absolute.top-0.inset-x-0.h-48 {
-    background: transparent !important;
-}
-
-html.light #solucoes .bg-\[radial-gradient\(circle_at_center\,transparent_30\%\,\#000000_100\%\)\] {
-    background: transparent !important;
-    opacity: 0 !important;
-}
-
-/* FAIXA BRANCA EXCLUSIVA SOBRE O TÍTULO
-   Pseudo-elemento posicionado atrás do conteúdo mas na frente da imagem.
-   Cobre a área do header (badge + h2 + parágrafo) e esfumaça para transparente abaixo. */
-html.light #solucoes::before {
-    content: '';
-    position: absolute;
-    inset-x: 0;
-    top: 0;
-    height: 420px;
-    /* Creme quente em vez de branco puro — suave e legível */
-    background: linear-gradient(to bottom,
-            rgba(240, 237, 232, 0.96) 0%,
-            rgba(240, 237, 232, 0.92) 40%,
-            rgba(240, 237, 232, 0.60) 68%,
-            rgba(240, 237, 232, 0.00) 100%);
-    z-index: 1;
-    pointer-events: none;
-}
-
 /* FORMULÁRIO DE CONTATO PREMIUM */
-/* O fundo original é #080808/95, nós mudamos para White com Glass */
 html.light .bg-\[\#080808\]\/95 {
     background-color: rgba(255, 255, 255, 0.95) !important;
     border-color: rgba(0, 0, 0, 0.08) !important;
@@ -219,7 +176,7 @@ html.light select option.bg-\[\#111111\] {
     color: var(--ds-dark) !important;
 }
 
-/* SHIMMER TEXT (Da parte de design system 3) */
+/* SHIMMER TEXT */
 html.light .shimmer-text {
     background: linear-gradient(90deg, var(--ds-stone-700) 0%, var(--ds-orange) 50%, var(--ds-stone-700) 100%) !important;
     background-size: 200% auto !important;
@@ -230,7 +187,6 @@ html.light .shimmer-text {
 }
 
 /* TRANSIÇÕES E GRADIENTES OVERLAY */
-/* Creme pedra em vez de branco puro — overlays mais suaves */
 html.light .from-\[\#030303\] {
     --tw-gradient-from: var(--ds-cream) var(--tw-gradient-from-position) !important;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(232, 228, 222, 0)) !important;
@@ -244,56 +200,32 @@ html.light .via-\[\#030303\]\/80 {
     --tw-gradient-stops: var(--tw-gradient-from), rgba(232, 228, 222, 0.65) var(--tw-gradient-via-position), var(--tw-gradient-to, rgba(232, 228, 222, 0)) !important;
 }
 
-/* Fumaça no footer / transição fina */
 html.light .from-black {
     --tw-gradient-from: #d6d1cb var(--tw-gradient-from-position) !important;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(214, 209, 203, 0)) !important;
 }
 
-/* Hero Overlay - Mais Leve no Light Mode */
-html.light .hero-overlay {
-    background: linear-gradient(90deg,
-            rgba(0, 0, 0, 0.65) 0%,
-            rgba(0, 0, 0, 0.45) 50%,
-            rgba(0, 0, 0, 0.20) 100%),
-        linear-gradient(0deg,
-            rgba(0, 0, 0, 0.70) 0%,
-            rgba(0, 0, 0, 0.10) 60%,
-            rgba(0, 0, 0, 0.30) 100%) !important;
-}
-
-/* Outros degradês e fundos fracos */
 html.light .bg-black\/50 {
     background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
 html.light .from-black\/20 {
-    --tw-gradient-from: rgba(255, 255, 255, 0.2) var(--tw-gradient-from-position) !important;
+    --tw-gradient-from: rgba(0, 0, 0, 0.05) var(--tw-gradient-from-position) !important;
 }
 
 html.light .to-black\/60 {
-    --tw-gradient-to: rgba(255, 255, 255, 0.9) var(--tw-gradient-to-position) !important;
+    --tw-gradient-to: rgba(0, 0, 0, 0.15) var(--tw-gradient-to-position) !important;
 }
 
 /* ÍCONES E BOTÕES (Btn Outline) */
-html.light .btn-outline {
+html.light .btn-outline:not(#hero *) {
     border-color: var(--ds-dark) !important;
     color: var(--ds-dark) !important;
 }
 
-html.light .btn-outline:hover {
+html.light .btn-outline:not(#hero *):hover {
     background-color: var(--ds-dark) !important;
     color: var(--ds-white) !important;
-}
-
-/* Override para o Hero: Botão Outline volta a ser branco no hover com texto preto */
-html.light #hero .btn-outline:hover {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-}
-
-html.light #hero .btn-outline:hover iconify-icon {
-    color: #000000 !important;
 }
 
 /* BARBA JS OVERLAYS E MOBILE MENU */
@@ -325,35 +257,23 @@ html.light #premium-toaster .text-white {
 }
 
 /* IMAGENS E LOGOS (DEDICADAS PARA O LIGHT MODE) */
-/* Shutter transition logo e Navbar logo usam a logo "C" preta/laranja */
-html.light .transition-logo img,
-html.light header img {
+html.light .transition-logo img {
     content: url("../images/logo-preto-laranja-c.png") !important;
     filter: none !important;
     object-fit: contain;
     width: 36px !important;
 }
 
-@media (min-width: 768px) {
-    html.light header img {
-        width: 42px !important;
-    }
-}
-
-/* Hero: mesma logo do dark mode em ambos os temas (fundo do Hero é escuro nos dois) */
-
-/* Para fundos que são "bg-[url('...')]" como parceiros / ícones e marcas que invertam se forem PNGs brancos */
 html.light img[alt="Grafismo fundo"] {
     filter: invert(1) !important;
     opacity: 0.05 !important;
 }
 
-/* Correção visual para os cards com group-hover text-white original e gradient de fundo de card */
 html.light .group:hover .text-white {
     color: var(--ds-orange) !important;
 }
 
-/* Gradients in Cards (para outros contextos fora de #solucoes) */
+/* Gradients in Cards */
 html.light .from-\[\#050505\] {
     --tw-gradient-from: var(--ds-soft) var(--tw-gradient-from-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
@@ -371,7 +291,6 @@ html.light .to-\[\#050505\]\/10 {
    CARDS DE SERVIÇOS (#solucoes) — VISUAL DARK MODE PRESERVADO
    ═══════════════════════════════════════════════════════ */
 
-/* Restaura gradiente — tom chumbo #111111 (menos pesado que #050505) */
 html.light #solucoes .group .from-\[\#050505\] {
     --tw-gradient-from: #111111 var(--tw-gradient-from-position) !important;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(17, 17, 17, 0)) !important;
@@ -385,38 +304,35 @@ html.light #solucoes .group .to-\[\#050505\]\/10 {
     --tw-gradient-to: rgba(17, 17, 17, 0.06) var(--tw-gradient-to-position) !important;
 }
 
-/* Restaura borda sutil escura dos cards */
 html.light #solucoes .group {
     border-color: rgba(255, 255, 255, 0.05) !important;
 }
 
-/* Restaura textos brancos dentro dos cards */
 html.light #solucoes .group h3,
 html.light #solucoes .group p {
     color: #ffffff !important;
 }
 
-/* Hover: título vira laranja (igual dark mode) */
 html.light #solucoes .group:hover h3 {
     color: var(--ds-orange) !important;
 }
 
-/* Borda laranja no hover (igual dark mode) */
 html.light #solucoes .group:hover {
     border-color: rgba(217, 62, 21, 0.40) !important;
 }
 
-/* Último card (Execução & Manutenção) — imagem naturalmente mais escura,
-   brightness compensa para ficar uniforme com os demais */
+html.light #solucoes .group>div:first-child {
+    filter: grayscale(0) !important;
+}
+
 html.light #solucoes .group:nth-child(4)>div:first-child {
-    filter: grayscale(1) brightness(2.2) !important;
+    filter: grayscale(0) brightness(1.6) !important;
 }
 
 html.light #solucoes .group:nth-child(4):hover>div:first-child {
     filter: grayscale(0) brightness(1.6) !important;
 }
 
-/* Divs que simulam white/5 no modo dark — usamos creme com borda sutil */
 html.light .bg-white\/5 {
     background-color: rgba(255, 255, 255, 0.6) !important;
     border-color: rgba(0, 0, 0, 0.07) !important;
@@ -434,14 +350,37 @@ html.light .group:hover .group-hover\:bg-white\/10 {
     background-color: var(--ds-gray) !important;
 }
 
-/* Watermark Footer Cavallini Text */
 html.light footer .text-\[22vw\],
 html.light footer .md\:text-\[16vw\] {
     color: var(--ds-dark) !important;
     opacity: 0.03 !important;
 }
 
-/* SMOOTH THEME TRANSITION */
+/* ═══════════════════════════════════════════════════════
+   NAVBAR GLASSMORPHISM (GLOBAL)
+   ═══════════════════════════════════════════════════════ */
+
+/* Estado Inicial (Topo) */
+.glass-nav {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado Scrolled (Com Blur) - Dark Mode Padrão (Usado em ambos os temas para contraste) */
+.glass-nav.scrolled {
+    background: rgba(5, 5, 5, 0.70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SMOOTH THEME TRANSITION
+   ═══════════════════════════════════════════════════════ */
+
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
@@ -455,5 +394,3 @@ html.theme-transitioning *::after {
         backdrop-filter 600ms cubic-bezier(0.4, 0, 0.2, 1) !important;
     transition-delay: 0s !important;
 }
-
-

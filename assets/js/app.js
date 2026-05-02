@@ -156,20 +156,65 @@ function initContactForm() {
     };
 }
 
+function initVideoObserver() {
+    const videos = document.querySelectorAll('video[autoplay]');
+    if (!videos.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                video.currentTime = 0;
+                video.play().catch(() => {}); 
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.1 });
+
+    videos.forEach(v => observer.observe(v));
+}
+
+function initNavbarScroll() {
+    const header = document.getElementById('main-header');
+    if (!header) return;
+
+    window.updateNavbarState = () => {
+        const header = document.getElementById('main-header');
+        if (!header) return;
+
+        // Detecta o container atual do Barba (o último adicionado ao DOM é o novo)
+        const containers = document.querySelectorAll('[data-barba="container"]');
+        const currentContainer = containers[containers.length - 1];
+        const isHome = currentContainer && currentContainer.getAttribute('data-barba-namespace') === 'home';
+        
+        // Se não estiver na home ou se houver scroll, aplica o blur escuro
+        if (!isHome || window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    };
+
+    window.removeEventListener('scroll', window.updateNavbarState);
+    window.addEventListener('scroll', window.updateNavbarState);
+    window.updateNavbarState();
+}
+
 function initThemeToggle() {
     const toggle = document.getElementById("theme-toggle");
     const iconMoon = document.getElementById("icon-moon");
-    const iconSun  = document.getElementById("icon-sun");
+    const iconSun = document.getElementById("icon-sun");
 
     function applyTheme(theme) {
         if (theme === "light") {
             document.documentElement.classList.add("light");
             if (iconMoon) iconMoon.classList.add("hidden");
-            if (iconSun)  iconSun.classList.remove("hidden");
+            if (iconSun) iconSun.classList.remove("hidden");
         } else {
             document.documentElement.classList.remove("light");
             if (iconMoon) iconMoon.classList.remove("hidden");
-            if (iconSun)  iconSun.classList.add("hidden");
+            if (iconSun) iconSun.classList.add("hidden");
         }
     }
 
@@ -206,6 +251,8 @@ function reinitGlobalComponents(container) {
     initScrollObserver();
     handleHashNavigation();
     initThemeToggle();
+    initVideoObserver();
+    if (window.updateNavbarState) window.updateNavbarState();
 
     // Auto-close menu on transition
     const mobileOverlay = document.getElementById("mobile-menu-overlay");
@@ -262,9 +309,9 @@ function reinitGlobalComponents(container) {
                 }
             };
         });
-    } else if (ns === 'avcb' || ns === 'consultoria' || ns === 'projetos') {
+    } else if (ns === 'avcb' || ns === 'consultoria' || ns === 'projetos' || ns === 'execucao') {
         // Animar imagem de fundo com fade in elegante
-        const bgImage = container.querySelector(".bg-cover");
+        const bgImage = container.querySelector(".reveal-image");
         if (bgImage) {
             gsap.fromTo(bgImage,
                 { opacity: 0, scale: 1.1 },
@@ -272,8 +319,17 @@ function reinitGlobalComponents(container) {
             );
         }
 
+        // Animar conteúdo da direita (texto)
+        const innerContent = container.querySelector(".reveal-inner");
+        if (innerContent) {
+            gsap.fromTo(innerContent,
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.6 }
+            );
+        }
+
         // Animar conteúdo com fade in suave e stagger
-        const content = container.querySelector(".projetos-content, .consultoria-content, .avcb-content");
+        const content = container.querySelector(".projetos-content, .consultoria-content, .avcb-content, .execucao-content");
         if (content) {
             gsap.fromTo(content.children,
                 { y: 40, opacity: 0 },
@@ -281,7 +337,7 @@ function reinitGlobalComponents(container) {
             );
         }
 
-        // Animar elementos específicos
+        // Animar conteúdo individual para maior fluidez
         const elements = container.querySelectorAll("h1, h2, h3, p, li, a:not(.no-barba)");
         gsap.fromTo(elements,
             { y: 30, opacity: 0 },
@@ -427,6 +483,7 @@ function handleHashNavigation() {
 document.addEventListener("DOMContentLoaded", () => {
     reinitGlobalComponents(document.querySelector('[data-barba="container"]'));
     handleHashNavigation();
+    initNavbarScroll();
     // State inicial
     gsap.set(".block.left", { x: "-100%" });
     gsap.set(".block.right", { x: "100%" });
