@@ -106,20 +106,24 @@ html.light a.bg-cavallini-orange .text-white {
 }
 
 /* TEXTOS CINZAS / MUTED */
+html.light .text-stone-300:not(#solucoes *) {
+    color: var(--ds-black) !important;
+}
+
 html.light .text-stone-400:not(#solucoes *) {
-    color: var(--ds-stone-700) !important;
+    color: var(--ds-stone-800) !important;
 }
 
 html.light .text-stone-500:not(#solucoes *) {
-    color: var(--ds-stone-600) !important;
+    color: var(--ds-stone-700) !important;
 }
 
 html.light .text-stone-600:not(#solucoes *) {
-    color: var(--ds-stone-500) !important;
+    color: var(--ds-stone-600) !important;
 }
 
 html.light .text-cavallini-muted:not(#solucoes *) {
-    color: var(--ds-stone-600) !important;
+    color: var(--ds-stone-700) !important;
 }
 
 html.light .text-transparent {
