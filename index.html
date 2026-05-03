@@ -113,13 +113,31 @@
 
         /* Botão Secundário Hover */
         .btn-outline {
-            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .btn-outline:hover {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: rgba(255, 255, 255, 0.1);
             transform: scale(1.02) translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-outline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.7s ease;
+            z-index: 10;
+        }
+
+        .btn-outline:hover::before {
+            left: 100%;
         }
 
         /* Background Crossfade & Cinematic Zoom */
@@ -432,11 +450,11 @@
                     <span class="sr-only">Cavallini Engenharia e Assessoria de AVCB</span>
                     <!-- Logo completa dark mode (Padrão) -->
                     <img src="assets/images/logo-branco-laranja-mode dark.png" alt="Cavallini Engenharia"
-                        class="hero-logo-dark w-auto h-auto max-w-[72vw] md:max-w-[360px] lg:max-w-[400px] max-h-[28vh] lg:max-h-[30vh] object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.12)] mx-auto">
+                        class="hero-logo-dark w-auto h-auto max-w-[72vw] md:max-w-[480px] lg:max-w-[550px] max-h-[28vh] lg:max-h-[35vh] object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.12)] mx-auto">
 
                     <!-- Logo completa light mode -->
                     <img src="assets/images/logo-completa.png" alt="Cavallini Engenharia"
-                        class="hero-logo-light hidden w-auto h-auto max-w-[72vw] md:max-w-[360px] lg:max-w-[400px] max-h-[28vh] lg:max-h-[30vh] object-contain mx-auto">
+                        class="hero-logo-light hidden w-auto h-auto max-w-[72vw] md:max-w-[480px] lg:max-w-[550px] max-h-[28vh] lg:max-h-[35vh] object-contain mx-auto">
                 </h1>
 
                 <div class="w-full flex justify-center">
@@ -445,7 +463,7 @@
 
                         <!-- Subheadline (Elegante e descritiva) -->
                         <p
-                            class="hero-reveal text-lg md:text-xl lg:text-2xl font-sans text-cavallini-gray leading-snug mb-8 font-light mx-auto px-4 max-w-2xl">
+                            class="hero-reveal text-base md:text-lg lg:text-xl font-sans text-cavallini-gray leading-snug mb-8 font-light mx-auto max-w-[72vw] md:max-w-[480px] lg:max-w-[550px]">
                             Assessoria, projeto, execução e regularização <strong
                                 class="font-semibold text-white">completa</strong> junto ao Corpo de Bombeiros.<br
                                 class="hidden md:block" /> Segurança de ponta a ponta com rigor técnico para empresas
@@ -455,11 +473,11 @@
 
                         <!-- CTAs (Redimensionados) -->
                         <div
-                            class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mt-2">
+                            class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 w-auto mt-2">
 
                             <!-- CTA Primário -->
                             <button
-                                class="btn-glow w-full sm:w-auto bg-cavallini-orange text-white px-8 py-3.5 rounded-md flex items-center justify-center gap-3 font-bold text-[13px] uppercase tracking-wider">
+                                class="btn-glow w-[72vw] md:w-[260px] h-[56px] bg-cavallini-orange text-white px-8 rounded-md flex items-center justify-center gap-3 font-bold text-[13px] uppercase tracking-wider">
                                 <span class="relative z-20">Solicitar AVCB</span>
                                 <iconify-icon icon="solar:arrow-right-up-linear"
                                     class="text-lg relative z-20"></iconify-icon>
@@ -467,7 +485,7 @@
 
                             <!-- CTA Secundário -->
                             <button
-                                class="btn-outline w-full sm:w-auto border border-white/20 bg-transparent text-white px-8 py-3.5 rounded-md flex items-center justify-center gap-3 font-semibold text-[13px] uppercase tracking-wider backdrop-blur-sm hover:border-white/60">
+                                class="btn-outline w-[72vw] md:w-[260px] h-[56px] border border-white/20 bg-white/5 text-white px-8 rounded-md flex items-center justify-center gap-3 font-semibold text-[13px] uppercase tracking-wider backdrop-blur-sm hover:border-white/60">
                                 <iconify-icon icon="solar:user-speak-rounded-linear" class="text-lg"></iconify-icon>
                                 Falar com especialista
                             </button>
@@ -653,12 +671,8 @@
 
         <!-- SEÇÃO VÍDEO (GIF-STYLE) -->
         <section class="relative w-full h-[35vh] md:h-[50vh] overflow-hidden bg-black z-20 border-t border-white/5">
-            <video 
-                class="absolute inset-0 w-full h-full object-cover scale-[1.4] md:scale-100 opacity-80" 
-                autoplay 
-                muted 
-                playsinline
-                preload="none">
+            <video class="absolute inset-0 w-full h-full object-cover scale-[1.4] md:scale-100 opacity-80" autoplay
+                muted playsinline preload="none">
                 <source src="assets/movie/Fire_extinguisher_in_office_corr…_202605021706.mp4" type="video/mp4">
             </video>
             <!-- Overlay sutil para manter o estilo premium -->
@@ -1321,6 +1335,12 @@
                     </ul>
                 </div>
 
+            </div>
+
+            <!-- Nome Gigante de Background (Urbanist) -->
+            <div class="absolute bottom-[-5%] left-1/2 -translate-x-1/2 text-[18vw] md:text-[22vw] font-black text-white/[0.03] select-none pointer-events-none z-0 uppercase tracking-tighter leading-none"
+                style="font-family: 'Urbanist', sans-serif;">
+                CAVALLINI
             </div>
 
             <!-- Divisória Sutil Premium -->
